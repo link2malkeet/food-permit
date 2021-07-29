@@ -1,0 +1,31 @@
+{
+  "name": "@food-permit/root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Service to run food-permit service",
+  "scripts": {
+    "build": "tsc --build .",
+    "build:api": "yarn workspace @food-permit/api run build && yarn run copy:datafile",
+    "test": "jest",
+    "copy:datafile": "copyfiles src/api/middleware/data/*.json lib -u 1 -V",
+    "start": "docker-compose up"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.16",
+    "copyfiles": "^2.4.1",
+    "jest": "^26.6.3",
+    "nodemon": "^1.19.1",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2"
+  },
+  "workspaces": {
+    "packages": [
+      "src/*"
+    ]
+  },
+  "resolutions": {
+    "**/**/@types/koa": "2.0.50",
+    "**/**/@types/koa-compose": "3.2.4"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  generic-image:
+    build:
+      context: .
+      dockerfile: build/genericDockerComposeImage/Dockerfile
+    image: genericimage
+  api:
+    image: genericimage
+    ports:
+      - '8090:8090'
+      - '6868:6868'
+    environment:
+      NODE_ENV: development
+      ENVIRONMENT: development
+    volumes:
+      - ./:/usr/app
+    command: /bin/sh -c "yarn workspace @food-permit/api run start:dev"
+    depends_on:
+      - generic-image
+    networks:
+      - food-permit
+
+networks:
+  food-permit:
+    driver: bridge
